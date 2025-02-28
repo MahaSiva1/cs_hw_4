@@ -62,12 +62,11 @@ def group_sum_6(start, nums, target):
             return True
         target = target + nums[start]
         return group_sum(start + 1, nums, target)
-    else:
-        target = target - nums[start]
-        if group_sum(start + 1, nums, target):
-            return True
-        target = target + nums[start]
-        return group_sum(start + 1, nums, target)
+    target = target - nums[start]
+    if group_sum(start + 1, nums, target):
+        return True
+    target = target + nums[start]
+    return group_sum(start + 1, nums, target)
 
 
 
@@ -104,12 +103,17 @@ def group_sum_5(start, nums, target):
     """
     if start >= len(nums):
         return target == 0
+
+    if nums[start] % 5 == 0:
+        if start + 1 < len(nums) and nums[start + 1] == 1:
+            return group_sum_5(start + 2, nums, target)
+        return group_sum_5(start + 1, nums, target - nums[start])
+
     target = target - nums[start]
     if group_sum_5(start + 1, nums, target):
         return True
-    if not nums[start] % 5 == 0:
-        target = target + nums[start]
-    return group_sum_5(start+1,nums,target)
+    target = target + nums[start]
+    return group_sum_5(start + 1, nums, target)
 
 
 
@@ -142,22 +146,13 @@ def group_sum_clump(start, nums, target):
             return True
         target = target + count * n
         return group_sum_clump(start + count, nums, target)
-    else:
-        target = target - nums[start]
-        if group_sum_clump(start + 1, nums, target):
-            return True
-        target = target + nums[start]
-        return group_sum_clump(start + 1, nums, target)
+    target = target - nums[start]
+    if group_sum_clump(start + 1, nums, target):
+        return True
+    target = target + nums[start]
+    return group_sum_clump(start + 1, nums, target)
 
 
-
-
-    #if group_sum(start + 1, nums, target):
-        #return True
-    #this is undoing the step if not true, when do we want to not undo?
-    # when there is clump of numbers w the same value
-    ##target = target + nums[start]
-    ##return group_sum(start + 1, nums, target)
 
 
 def split_array(nums):
