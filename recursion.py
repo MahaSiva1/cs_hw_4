@@ -17,7 +17,6 @@ UT EID 2:
 """
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to the
@@ -31,7 +30,7 @@ def group_sum(start, nums, target):
         # target was 0, then we would return True, otherwise False
         return target == 0
         # next simple case: [1]
-        # target would have to be 1, recursively solve this problem, after chooseing the number 
+        # target would have to be 1, recursively solve this problem, after chooseing the number
         # or not choosing the number
 
     #possible choices
@@ -45,7 +44,6 @@ def group_sum(start, nums, target):
     return group_sum(start + 1, nums, target)
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_6(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to the
@@ -57,10 +55,8 @@ def group_sum_6(start, nums, target):
     """
     if start >= len(nums):
         return target == 0
-    
     if 6 in nums:
         target = target - 6
-        
         target = target - nums[start]
         if group_sum(start + 1, nums, target):
             return True
@@ -75,7 +71,6 @@ def group_sum_6(start, nums, target):
 
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_no_adj(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -98,7 +93,6 @@ def group_no_adj(start, nums, target):
 
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_5(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -110,19 +104,16 @@ def group_sum_5(start, nums, target):
     """
     if start >= len(nums):
         return target == 0
-    
     target = target - nums[start]
     if group_sum_5(start + 1, nums, target):
         return True
-    
-    if not (nums[start] % 5 == 0): 
+    if not nums[start] % 5 == 0:
         target = target + nums[start]
     return group_sum_5(start+1,nums,target)
 
 
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def group_sum_clump(start, nums, target):
     """
     Given a list of ints, determine if there exists a group of some ints that sum to
@@ -134,10 +125,8 @@ def group_sum_clump(start, nums, target):
     pre: start >= 0, len(nums) >= 0, target >= 0, nums will only contain ints
     post: return True if nums has a group of ints that sum to target, False otherwise
     """
-    
     if start >= len(nums):
         return target == 0
-    
     #target = target - nums[start]
     count = 1
     n = nums[start]
@@ -148,7 +137,6 @@ def group_sum_clump(start, nums, target):
         else:
             break
     if count>1:
-        val = count * n
         target -= count * n
         if group_sum_clump(start + count, nums, target):
             return True
@@ -166,14 +154,12 @@ def group_sum_clump(start, nums, target):
 
     #if group_sum(start + 1, nums, target):
         #return True
-    
     #this is undoing the step if not true, when do we want to not undo?
     # when there is clump of numbers w the same value
     ##target = target + nums[start]
     ##return group_sum(start + 1, nums, target)
 
 
-# TODO: Modify this function
 def split_array(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -183,28 +169,25 @@ def split_array(nums):
     pre: len(nums) >= 0, nums will only contain ints
     post: return True if nums can be split, False otherwise
     """
-    
     sum1 = []
     sum2 = []
-    start = 0 
+    start = 0
     val = split_helper(nums, start, sum1, sum2)
     return val
 
 def split_helper(nums, start, sum1, sum2):
-    #put it into sum1 
+    #put it into sum1
     '''
     sum1.append(nums[1])
     do the recursion 
     if false-> take it out of sum1 
     add nums[start] to sum2
     '''
-    if start >= len(nums): 
+    if start >= len(nums):
         return sum(sum1) == sum(sum2)
-    
     sum1.append(nums[start])
     if split_helper (nums, start + 1, sum1, sum2):
         return True
-   
     sum1.pop()
     sum2.append(nums[start])
     val1 =  split_helper(nums, start + 1, sum1, sum2)
@@ -216,7 +199,6 @@ def split_helper(nums, start, sum1, sum2):
 
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def split_odd_10(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -233,14 +215,13 @@ def split_odd_10(nums):
     return val
 
 def odd_10_helper(nums, start, sum1, sum2):
+    """helper function that the odd_10 function will use"""
 
-    if start >= len(nums): 
+    if start >= len(nums):
         return sum(sum1) % 2 != 0 and sum(sum2) % 10 == 0
-    
     sum1.append(nums[start])
     if odd_10_helper(nums, start + 1, sum1, sum2):
         return True
-   
     sum1.pop()
     sum2.append(nums[start])
     val1 = odd_10_helper(nums, start + 1, sum1, sum2)
@@ -249,7 +230,6 @@ def odd_10_helper(nums, start, sum1, sum2):
 
 
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def split_53(nums):
     """
     Given a list of ints, determine if the numbers can be split evenly into two groups
@@ -261,7 +241,7 @@ def split_53(nums):
     pre: len(nums) >= 0, nums will only contain ints
     post: return True if nums can be split, False otherwise
     """
-    # two different sums you need to keep track of 
+    # two different sums you need to keep track of
     sum1 = []
     sum2 = []
     start = 0
@@ -269,12 +249,11 @@ def split_53(nums):
     return val
 
 def split53_help(nums, start, sum1, sum2):
-
-    if start >= len(nums): 
+    """helper function that split53 will use"""
+    if start >= len(nums):
         #return (sum(sum1) == sum(sum2)) and (sum(sum1) % 5 == 0 and sum(sum2) % 3 == 0)
         return sum(sum1) == sum(sum2)
-       
-    if nums[start] % 5 == 0: 
+    if nums[start] % 5 == 0:
         sum1.append(nums[start])
         if split53_help(nums, start + 1, sum1, sum2):
             return True
@@ -285,7 +264,6 @@ def split53_help(nums, start, sum1, sum2):
         val1 = split53_help(nums, start + 1, sum1, sum2)
         sum2.pop()
         return val1
-    
     else:
         sum1.append(nums[start])
         if split53_help(nums, start + 1, sum1, sum2):
